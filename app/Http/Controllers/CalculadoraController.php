@@ -11,9 +11,19 @@ class CalculadoraController extends Controller
     }
 
     public function calcular(Request $request) {
-        $n1 = $request->num1;
-        $n2 = $request->num2;
-        $op = $request->operacao;
+        // 1. O "Segurança" (Validação)
+    $dados = $request->validate([
+        'num1' => 'required|numeric',
+        'num2' => 'required|numeric',
+        'operacao' => 'required|in:soma,sub,mult,div',
+    ], [
+        'required' => 'O campo :attribute é obrigatório!',
+        'numeric' => 'Digite apenas números!'
+    ]);
+
+        $n1 = $dados['num1'];
+        $n2 = $dados['num2'];
+        $op = $dados['operacao'];
         $resultado = 0;
 
         if($op == 'soma') $resultado = $n1 + $n2;

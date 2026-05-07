@@ -10,13 +10,21 @@
 
     <div class="bg-gray-800 p-8 rounded-2xl shadow-2xl w-full max-w-md border border-gray-700">
         <h1 class="text-2xl font-bold text-white mb-6 text-center">Calculadora <span class="text-indigo-500">PHP</span></h1>
-
+        @if ($errors->any())
+    <div style="background-color: #ffcccc; color: #cc0000; padding: 10px; margin-bottom: 20px; border-radius: 5px;">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
         <form action="/calcular" method="POST" class="space-y-4">
             @csrf
             
             <div class="grid grid-cols-1 gap-4">
-                <input type="number" name="num1" placeholder="Primeiro número" required
-                    class="w-full bg-gray-700 border-none rounded-lg p-3 text-white placeholder-gray-400 focus:ring-2 focus:ring-indigo-500 outline-none transition-all">
+                <input type="number" name="num1" placeholder="Primeiro número"
+                    class="w-full bg-gray-700 border-none rounded-lg p-3 text-white placeholder-gray-400 focus:ring-2 focus:ring-indigo-500 outline-none transition-all" value="{{ old('num1') }}">
                 
                 <select name="operacao" 
                     class="w-full bg-gray-700 border-none rounded-lg p-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all cursor-pointer">
@@ -26,8 +34,8 @@
                     <option value="div">Dividir (/)</option>
                 </select>
 
-                <input type="number" name="num2" placeholder="Segundo número" required
-                    class="w-full bg-gray-700 border-none rounded-lg p-3 text-white placeholder-gray-400 focus:ring-2 focus:ring-indigo-500 outline-none transition-all">
+                <input type="number" name="num2" placeholder="Segundo número"
+                    class="w-full bg-gray-700 border-none rounded-lg p-3 text-white placeholder-gray-400 focus:ring-2 focus:ring-indigo-500 outline-none transition-all" value="{{ old('num2') }}">
             </div>
 
             <button type="submit" 
